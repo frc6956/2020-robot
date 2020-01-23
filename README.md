@@ -3,24 +3,24 @@
 ##Subsystems
 
 Drivetrain
--setTankDrive()
--setArcadeDrive()
--DriveDistance()
--getDistanceTravelled()
+- setTankDrive()
+- setArcadeDrive()
+- DriveDistance()
+- getDistanceTravelled()
 
 Shooter
--setWheelSpeed() -> Increment/Decrement/Lock Speed
+- setWheelSpeed() -> Increment/Decrement/Lock Speed
 
 Delivery
--activatePulley() -> they might be wheels
+- activatePulley() -> they might be wheels
 
 Intake
--setIntakeSpeed()
+- setIntakeSpeed()
 
 Spinny Thing
--spinWheel()
--detectColor()
--rotationCount()
+- spinWheel()
+- detectColor()
+- rotationCount()
 
 SlipAndSlide
--actuate()
+- actuate()
