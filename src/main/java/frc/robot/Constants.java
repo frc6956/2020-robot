@@ -35,7 +35,10 @@ public final class Constants {
     public static final int shooterLeft = 1;
     public static final int shooterRight = 1;
 
+    //CAN
+    public static final int spinner = 7;
     //PWM
-
+	public static final int doubleSolenoidA = 1;
+	public static final int doubleSolenoidB = 0;
     //Digital Imports
 }
