@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.*;
@@ -41,6 +42,9 @@ public class RobotContainer {
   private final Command m_splitArcadeJoystick = new RunCommand(
     () -> m_drivetrain.arcadeDrive(-m_driverLeftJoystick.getY(), m_driverRightJoystick.getX()), m_drivetrain);
 
+  private final Command m_operatorSwitchGear = new RunCommand(
+    () -> m_drivetrain.switchGear(), m_drivetrain);
+
   private final Command m_TeleopIntake  = new RunCommand(
     () -> m_intake.setIntakeSpeed(-m_operatorController.getY(Hand.kLeft)) );
 
@@ -49,6 +53,7 @@ public class RobotContainer {
 
   private final Command m_TeleopFeeder = new RunCommand(
     () -> m_feeder.setFeedSpeed(m_operatorController.getX(Hand.kRight)) );
+
 
 
   /**
@@ -74,7 +79,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
+    new JoystickButton(m_driverRightJoystick, 5).whenPressed(m_operatorSwitchGear);
   }
 
 
