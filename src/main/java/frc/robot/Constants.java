@@ -20,9 +20,12 @@ public final class Constants {
     public static final int driverJoyLeft = 0;
     public static final int driverJoyRight = 1;
     public static final int operatorController = 2;
+    public static final int driveController = 3;
+
     //CAN
-
+    public static final int spinner = 7;
     //PWM
-
+	public static final int doubleSolenoidA = 1;
+	public static final int doubleSolenoidB = 0;
     //Digital Imports
 }
