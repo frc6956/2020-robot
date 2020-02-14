@@ -7,12 +7,13 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.I2C;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.*;
 import frc.robot.Constants;
 
@@ -21,7 +22,7 @@ public class ColorSpinner extends SubsystemBase {
    * Creates a new Drivetrain.
    */
 
-   private Talon spinnerMotor = new Talon(Constants.spinner);
+   private WPI_TalonSRX spinnerMotor = new WPI_TalonSRX(Constants.spinner);
    private ColorSensorV3 clrSensor = new ColorSensorV3(I2C.Port.kOnboard);
    private ColorMatch clrMatch = new ColorMatch();
    private Color matchedColor;
@@ -79,6 +80,6 @@ public class ColorSpinner extends SubsystemBase {
   }
 
   public void setWheelSpeed(double speed) {
-    spinnerMotor.setSpeed(speed);
+    spinnerMotor.set(speed);
   }
 }
