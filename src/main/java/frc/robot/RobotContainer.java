@@ -7,11 +7,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.Command;
-
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -25,21 +27,43 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   //Subsystems
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain m_drivetrain = new Drivetrain();
-  //Commands
-  private final TeleopDrive m_teleopDrive = new TeleopDrive(m_drivetrain);
+  private final Intake m_intake = new Intake();
+  private final Conveyor m_conveyor = new Conveyor();
+  private final Feeder m_feeder = new Feeder();
 
-  //OIDevices
-  private Joystick driverLeft = new Joystick(Constants.driverJoyLeft);
-  private Joystick driverRight = new Joystick(Constants.driverJoyRight);
-  private XboxController operator = new XboxController(Constants.operatorController);
+  //OI Devices
+  private final Joystick m_driverLeftJoystick = new Joystick(Constants.driverJoyLeft);
+  private final Joystick m_driverRightJoystick = new Joystick(Constants.driverJoyRight);
+  private final XboxController m_operatorController = new XboxController(Constants.operatorController);
+
+  //Commands
+  private final Command m_splitArcadeJoystick = new RunCommand(
+    () -> m_drivetrain.arcadeDrive(-m_driverLeftJoystick.getY(), m_driverRightJoystick.getX()), m_drivetrain);
+
+  private final Command m_TeleopIntake  = new RunCommand(
+    () -> m_intake.setIntakeSpeed(-m_operatorController.getY(Hand.kLeft)) );
+
+  private final Command m_TeleopConveyor = new RunCommand(
+    () -> m_conveyor.setConveyorSpeed(m_operatorController.getY(Hand.kLeft)) );
+
+  private final Command m_TeleopFeeder = new RunCommand(
+    () -> m_feeder.setFeedSpeed(m_operatorController.getX(Hand.kRight)) );
+
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    // Configure the button bindings
+    // Default Commands
+    m_drivetrain.setDefaultCommand(m_splitArcadeJoystick);
+    m_intake.setDefaultCommand(m_TeleopIntake);
+    m_conveyor.setDefaultCommand(m_TeleopConveyor);
+    m_feeder.setDefaultCommand(m_TeleopFeeder);
+
+		CameraServer.getInstance().startAutomaticCapture(0);
+    CameraServer.getInstance().startAutomaticCapture(1);
+    
     configureButtonBindings();
   }
 
@@ -61,6 +85,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_teleopDrive;
+    return m_splitArcadeJoystick;
   }
 }
