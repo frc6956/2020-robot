@@ -62,7 +62,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Default Commands
     m_drivetrain.setDefaultCommand(m_splitArcadeJoystick);
-    m_intake.setDefaultCommand(m_TeleopIntake);
+   // m_intake.setDefaultCommand(m_TeleopIntake);
     m_conveyor.setDefaultCommand(m_TeleopConveyor);
     m_feeder.setDefaultCommand(m_TeleopFeeder);
 
