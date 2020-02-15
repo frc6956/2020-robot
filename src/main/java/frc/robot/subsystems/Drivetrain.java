@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,7 +18,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 public class Drivetrain extends SubsystemBase {
   
-  
+  DoubleSolenoid doubleSolenoid = new DoubleSolenoid(Constants.doubleSolenoidA, Constants.doubleSolenoidB);
   private final DifferentialDrive m_drive;
 
   private final WPI_TalonSRX m_leftSRX;
@@ -31,6 +32,7 @@ public class Drivetrain extends SubsystemBase {
 
   private double zeroDistance = 0;
   private boolean reverse = false;
+  private boolean low = true;
   private final double ticksPerInch = 4096 / (4 * Math.PI);
   private final double speedLimit = 1.0;
 
@@ -132,4 +134,27 @@ public class Drivetrain extends SubsystemBase {
     total += m_rightSRX.getSelectedSensorPosition(0) / ticksPerInch;
     return (total / 2);
   }
+
+  public void lowGear() {
+		if (doubleSolenoid.get() != DoubleSolenoid.Value.kForward) {
+			doubleSolenoid.set(DoubleSolenoid.Value.kForward);
+    }
+    low = true;
+  }
+    
+  public void highGear() {
+		if (doubleSolenoid.get() != DoubleSolenoid.Value.kReverse) {
+			doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
+    }
+    low = false;
+  }
+
+  public void switchGear() {
+    if(low) {
+      highGear();
+    } else {
+      lowGear();
+    }
+  }
+
 }
