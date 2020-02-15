@@ -23,11 +23,11 @@ public final class Constants {
 	public static final int driverJoyRight = 3;
 
 	// CAN
-	public static final int leftDriveMotor = 0;
-	public static final int leftDriveSPX1 = 1;
-	public static final int leftDriveSPX2 = 2;
-	public static final int rightDriveMotor = 1;
-	public static final int rightDriveSPX1 = 3;
+	public static final int leftDriveMotor = 1;
+	public static final int leftDriveSPX1 = 3;
+	public static final int leftDriveSPX2 = 5;
+	public static final int rightDriveMotor = 0;
+	public static final int rightDriveSPX1 = 2;
     public static final int rightDriveSPX2 = 4;
     public static final int intakeMotor = 1;
     public static final int conveyorMotor = 1;

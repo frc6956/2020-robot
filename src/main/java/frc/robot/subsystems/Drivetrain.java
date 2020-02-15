@@ -33,8 +33,11 @@ public class Drivetrain extends SubsystemBase {
   private double zeroDistance = 0;
   private boolean reverse = false;
   private boolean low = true;
-  private final double ticksPerInch = 4096 / (4 * Math.PI);
+  private final double ticksPerInch = 4096 / (8 * Math.PI);
   private final double speedLimit = 1.0;
+
+  private double speedAverage = 0;
+  private double speedDifference = 0;
 
   public Drivetrain() {
     m_leftSRX = new WPI_TalonSRX(Constants.leftDriveMotor);
@@ -150,11 +153,20 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void switchGear() {
-    if(low) {
+    speedAverage = m_leftSRX.getSelectedSensorVelocity() * 10 / ticksPerInch;
+    speedAverage += m_rightSRX.getSelectedSensorVelocity() * 10 / ticksPerInch;
+    speedAverage /= 2;
+
+    speedDifference = Math.abs(m_leftSRX.getSelectedSensorVelocity() - m_rightSRX.getSelectedSensorVelocity() );
+
+    if(speedAverage > 10 && low==true) {
       highGear();
-    } else {
+    } 
+
+    if(speedAverage < 7 && low==false) {
       lowGear();
     }
+
   }
 
 }
