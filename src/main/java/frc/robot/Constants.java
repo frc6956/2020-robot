@@ -39,6 +39,8 @@ public final class Constants {
     //PWM
 	public static final int doubleSolenoidA = 0;
 	public static final int doubleSolenoidB = 1;
+	public static final int doubleSolenoidC = 2;
+	public static final int doubleSolenoidD = 3;
 	
     //Digital Imports
 }

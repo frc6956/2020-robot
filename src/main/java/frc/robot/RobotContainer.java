@@ -32,6 +32,7 @@ public class RobotContainer {
   private final Conveyor m_conveyor = new Conveyor();
   private final Feeder m_feeder = new Feeder();
   private final GyroPigeon m_gyro = new GyroPigeon();
+  private final LinearSlide m_slide = new LinearSlide();
 
   //OI Devices
   private final Joystick m_driverLeftJoystick = new Joystick(Constants.driverJoyLeft);
