@@ -40,12 +40,17 @@ public class RobotContainer {
   private final XboxController m_operatorController = new XboxController(Constants.operatorController);
 
   //Commands
+    //Driver
   private final Command m_splitArcadeJoystick = new RunCommand(
     () -> m_drivetrain.arcadeDrive(-m_driverLeftJoystick.getY(), m_driverRightJoystick.getX()), m_drivetrain);
 
   private final Command m_operatorSwitchGear = new RunCommand(
     () -> m_drivetrain.switchGear(), m_drivetrain);
 
+  private final Command m_invertDrive = new RunCommand(
+    () -> m_drivetrain.reverse(!m_drivetrain.isReversed()), m_drivetrain);
+
+    //Operator
   private final Command m_TeleopIntake  = new RunCommand(
     () -> m_intake.setIntakeSpeed(-m_operatorController.getY(Hand.kLeft)) );
 
@@ -55,6 +60,12 @@ public class RobotContainer {
   private final Command m_TeleopFeeder = new RunCommand(
     () -> m_feeder.setFeedSpeed(m_operatorController.getX(Hand.kRight)) );
 
+  private final Command m_TeleopSlide = new RunCommand(
+    () -> m_slide.actuate());
+
+  private final SequentialCommandGroup m_AutoGrab = new SequentialCommandGroup(new Slide(m_slide),  new WaitCommand(2), new Slide(m_slide) );
+
+
 
 
   /**
@@ -63,7 +74,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Default Commands
     m_drivetrain.setDefaultCommand(m_splitArcadeJoystick);
-   // m_intake.setDefaultCommand(m_TeleopIntake);
+    m_intake.setDefaultCommand(m_TeleopIntake);
     m_conveyor.setDefaultCommand(m_TeleopConveyor);
     m_feeder.setDefaultCommand(m_TeleopFeeder);
 
@@ -80,7 +91,11 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driverRightJoystick, 5).whenPressed(m_operatorSwitchGear);
+    new JoystickButton(m_driverLeftJoystick, 1).whenPressed(m_operatorSwitchGear);
+    new JoystickButton(m_driverRightJoystick, 1).whenPressed(m_invertDrive);
+    new JoystickButton(m_operatorController, XboxController.Button.kB.value).whenPressed(m_TeleopSlide);
+    new JoystickButton(m_operatorController, XboxController.Button.kA.value).whenPressed(m_AutoGrab);
+
   }
 
 

@@ -10,7 +10,7 @@ public class LinearSlide {
 
     }
 
-    public void switchDS() {
+    public void actuate() {
         if (m_slideSolenoid.get() != DoubleSolenoid.Value.kReverse) {
             m_slideSolenoid.set(DoubleSolenoid.Value.kReverse);
         }
