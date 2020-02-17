@@ -13,8 +13,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -32,6 +31,7 @@ public class RobotContainer {
   private final Intake m_intake = new Intake();
   private final Conveyor m_conveyor = new Conveyor();
   private final Feeder m_feeder = new Feeder();
+  private final GyroPigeon m_gyro = new GyroPigeon();
 
   //OI Devices
   private final Joystick m_driverLeftJoystick = new Joystick(Constants.driverJoyLeft);
@@ -90,6 +90,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_splitArcadeJoystick;
+    return new SequentialCommandGroup(new DriveDistancePID(m_drivetrain, m_gyro, 120), new TurnAnglePID(m_drivetrain, m_gyro, 180) );
   }
 }
