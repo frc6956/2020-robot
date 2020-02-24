@@ -24,19 +24,19 @@ public final class Constants {
 
 	// CAN
 	public static final int leftDriveMotor = 1;
-	public static final int leftDriveSPX1 = 3;
-	public static final int leftDriveSPX2 = 5;
-	public static final int rightDriveMotor = 0;
+	public static final int leftDriveSPX1 = 1;
+	public static final int leftDriveSPX2 = 3;
+	public static final int rightDriveMotor = 2;
 	public static final int rightDriveSPX1 = 2;
     public static final int rightDriveSPX2 = 4;
-    public static final int intakeMotor = 1;
-    public static final int conveyorMotor = 1;
-    public static final int feederMotor = 1;
-    public static final int shooterLeft = 1;
-    public static final int shooterRight = 1;
-	public static final int spinner = 7;
+    public static final int intakeMotor = 5;
+    public static final int conveyorMotor = 6;
+    public static final int feederMotor = 7;
+    public static final int shooterLeft = 3;
+    public static final int shooterRight = 4;
+	public static final int spinner = 5;
 	
-    //PWM
+    //PCM
 	public static final int doubleSolenoidA = 0;
 	public static final int doubleSolenoidB = 1;
 	public static final int doubleSolenoidC = 2;
