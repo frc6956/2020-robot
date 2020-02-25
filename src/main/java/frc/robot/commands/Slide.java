@@ -18,7 +18,6 @@ public class Slide extends CommandBase {
    */
 
   private final LinearSlide mSlide;
-  private DoubleSolenoid m_slideSolenoid = new DoubleSolenoid(Constants.doubleSolenoidC, Constants.doubleSolenoidD);
 
   public Slide(LinearSlide slide) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -33,12 +32,6 @@ public class Slide extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_slideSolenoid.get() != DoubleSolenoid.Value.kReverse) {
-      m_slideSolenoid.set(DoubleSolenoid.Value.kReverse);
-  }
-  else if(m_slideSolenoid.get() != DoubleSolenoid.Value.kForward) {
-      m_slideSolenoid.set(DoubleSolenoid.Value.kForward);
-    }
   }
 
   // Called once the command ends or is interrupted.

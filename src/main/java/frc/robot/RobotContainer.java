@@ -55,16 +55,16 @@ public class RobotContainer {
 
     //Operator
   private final Command m_TeleopIntake  = new RunCommand(
-    () -> m_intake.setIntakeSpeed(-m_operatorController.getY(Hand.kLeft)) );
+    () -> m_intake.setIntakeSpeed(-m_operatorController.getY(Hand.kLeft)), m_intake);
 
   private final Command m_TeleopConveyor = new RunCommand(
-    () -> m_conveyor.setConveyorSpeed(m_operatorController.getY(Hand.kLeft)) );
+    () -> m_conveyor.setConveyorSpeed(m_operatorController.getY(Hand.kLeft)), m_conveyor);
 
   private final Command m_TeleopFeeder = new RunCommand(
-    () -> m_feeder.setFeedSpeed(m_operatorController.getX(Hand.kRight)) );
+    () -> m_feeder.setFeedSpeed(m_operatorController.getX(Hand.kRight)), m_feeder);
 
   private final Command m_TeleopSlide = new RunCommand(
-    () -> m_slide.actuate());
+    () -> m_slide.actuate(), m_slide);
 
   private final SequentialCommandGroup m_AutoGrab = new SequentialCommandGroup(new Slide(m_slide),  new WaitCommand(2), new Slide(m_slide) );
 
