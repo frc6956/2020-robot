@@ -18,7 +18,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 public class Drivetrain extends SubsystemBase {
   
-  DoubleSolenoid doubleSolenoid = new DoubleSolenoid(Constants.doubleSolenoidA, Constants.doubleSolenoidB);
+  DoubleSolenoid doubleSolenoid = new DoubleSolenoid(Constants.driveLow, Constants.driveHigh);
   private final DifferentialDrive m_drive;
 
   private final WPI_TalonSRX m_leftSRX;

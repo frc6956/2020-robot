@@ -30,17 +30,19 @@ public final class Constants {
 	public static final int rightDriveSPX1 = 2;
     public static final int rightDriveSPX2 = 4;
     public static final int intakeMotor = 5;
-    public static final int conveyorMotor = 6;
-    public static final int feederMotor = 7;
-    public static final int shooterLeft = 3;
+    public static final int conveyorMotor = 7;
+    public static final int feederMotor = 6;
+    public static final int shooterLeft = 5;
     public static final int shooterRight = 4;
-	public static final int spinner = 5;
+	public static final int spinner = 3;
 	
     //PCM
-	public static final int doubleSolenoidA = 0;
-	public static final int doubleSolenoidB = 1;
-	public static final int doubleSolenoidC = 2;
-	public static final int doubleSolenoidD = 3;
+	public static final int spinnerUp = 0;
+	public static final int spinnerDown = 1;
+	public static final int slideIn = 2;
+	public static final int slideOut = 3;
+	public static final int driveHigh = 7;
+	public static final int driveLow = 6;
 	
     //Digital Imports
 }

@@ -33,6 +33,7 @@ public class RobotContainer {
   private final Feeder m_feeder = new Feeder();
   private final GyroPigeon m_gyro = new GyroPigeon();
   private final LinearSlide m_slide = new LinearSlide();
+  private final ColorSpinner m_spinner = new ColorSpinner();
 
   //OI Devices
   private final Joystick m_driverLeftJoystick = new Joystick(Constants.driverJoyLeft);
@@ -60,8 +61,17 @@ public class RobotContainer {
   private final Command m_TeleopFeeder = new RunCommand(
     () -> m_feeder.setFeedSpeed(m_operatorController.getX(Hand.kRight)), m_feeder);
 
-  private final Command m_TeleopSlide = new RunCommand(
-    () -> m_slide.actuate(), m_slide);
+  private final Command m_TeleopSlideIn = new RunCommand(
+    () -> m_slide.actuateIn(), m_slide);
+
+  private final Command m_TeleopSlideOut = new RunCommand(
+    () -> m_slide.actuateOut(), m_slide);
+
+    private final Command m_SpinnerUp = new RunCommand(
+      () -> m_slide.actuateIn(), m_slide);
+  
+    private final Command m_SpinnerDown = new RunCommand(
+      () -> m_slide.actuateOut(), m_slide);
 
   private final SequentialCommandGroup m_AutoGrab = new SequentialCommandGroup(new Slide(m_slide),  new WaitCommand(2), new Slide(m_slide) );
 
@@ -93,9 +103,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(m_driverLeftJoystick, 1).whenPressed(m_operatorSwitchGear);
     new JoystickButton(m_driverRightJoystick, 1).whenPressed(m_invertDrive);
-    new JoystickButton(m_operatorController, XboxController.Button.kB.value).whenPressed(m_TeleopSlide);
-    new JoystickButton(m_operatorController, XboxController.Button.kA.value).whenPressed(m_AutoGrab);
-
+    new JoystickButton(m_operatorController, XboxController.Button.kB.value).whenPressed(m_TeleopSlideOut);
+    new JoystickButton(m_operatorController, XboxController.Button.kA.value).whenPressed(m_TeleopSlideIn);
+    new JoystickButton(m_operatorController, XboxController.Button.kX.value).whenPressed(m_SpinnerDown);
+    new JoystickButton(m_operatorController, XboxController.Button.kY.value).whenPressed(m_SpinnerUp);
   }
 
 

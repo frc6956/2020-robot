@@ -32,7 +32,7 @@ public class ColorSpinner extends SubsystemBase {
    private int index = -1; 
    private double rotations = 0;
 
-   DoubleSolenoid doubleSolenoid = new DoubleSolenoid(Constants.doubleSolenoidA, Constants.doubleSolenoidB);
+   DoubleSolenoid doubleSolenoid = new DoubleSolenoid(Constants.spinnerUp, Constants.spinnerDown);
    
 
   public ColorSpinner() {
