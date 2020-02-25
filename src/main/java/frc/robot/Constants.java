@@ -37,12 +37,12 @@ public final class Constants {
 	public static final int spinner = 3;
 	
     //PCM
-	public static final int spinnerUp = 0;
-	public static final int spinnerDown = 1;
-	public static final int slideIn = 2;
-	public static final int slideOut = 3;
-	public static final int driveHigh = 7;
-	public static final int driveLow = 6;
+	public static final int spinnerUp = 1;
+	public static final int spinnerDown = 0;
+	public static final int slideIn = 6;
+	public static final int slideOut = 7;
+	public static final int driveHigh = 3;
+	public static final int driveLow = 2;
 	
     //Digital Imports
 }
