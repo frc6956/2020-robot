@@ -50,10 +50,10 @@ public class RobotContainer {
     () -> m_drivetrain.tankDrive(-m_driverLeftJoystick.getY(), -m_driverRightJoystick.getY()), m_drivetrain);
 
   private final Command m_driverSwitchHigh = new RunCommand(
-    () -> m_drivetrain.switchGear(), m_drivetrain);
+    () -> m_drivetrain.highGear(), m_drivetrain);
   
   private final Command m_driverSwitchLow = new RunCommand(
-    () -> m_drivetrain.switchGear(), m_drivetrain);
+    () -> m_drivetrain.lowGear(), m_drivetrain);
 
   private final Command m_invertDrive = new RunCommand(
     () -> m_drivetrain.reverse(!m_drivetrain.isReversed()), m_drivetrain);

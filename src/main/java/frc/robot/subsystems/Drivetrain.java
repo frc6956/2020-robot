@@ -35,7 +35,6 @@ public class Drivetrain extends SubsystemBase {
   private boolean reverse = false;
   private boolean low = true;
   private final double ticksPerInch = 4096 / (8 * Math.PI);
-  private final double speedLimit = 1.0;
 
   private double speedAverage = 0;
   private double speedDifference = 0;
@@ -86,9 +85,9 @@ public class Drivetrain extends SubsystemBase {
 
   public void tankDrive(final double left, final double right, boolean squareInputs) {
     if (reverse) {
-      m_drive.tankDrive(-right * speedLimit, -left * speedLimit, squareInputs);
+      m_drive.tankDrive(-right, -left, squareInputs);
     } else {
-      m_drive.tankDrive(left * speedLimit, right * speedLimit, squareInputs);
+      m_drive.tankDrive(left, right, squareInputs);
     }
   }
 
@@ -98,11 +97,10 @@ public class Drivetrain extends SubsystemBase {
    * @param rotation Rotation
    */
   public void arcadeDrive(double speed, double rotation) {
-    rotation = rotation * speedLimit;
     if (reverse) {
-      speed = -speed * speedLimit;
+      speed = -speed;
     } else {
-      speed = speed * speedLimit;
+      speed = speed;
     }
     SmartDashboard.putNumber("speed", speed);
     SmartDashboard.putNumber("rotation", rotation);
