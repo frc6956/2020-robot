@@ -45,7 +45,10 @@ public class RobotContainer {
   private final Command m_splitArcadeJoystick = new RunCommand(
     () -> m_drivetrain.arcadeDrive(-m_driverLeftJoystick.getY(), m_driverRightJoystick.getX()), m_drivetrain);
 
-  private final Command m_operatorSwitchGear = new RunCommand(
+  private final Command m_driverSwitchHigh = new RunCommand(
+    () -> m_drivetrain.switchGear(), m_drivetrain);
+  
+  private final Command m_driverSwitchLow = new RunCommand(
     () -> m_drivetrain.switchGear(), m_drivetrain);
 
   private final Command m_invertDrive = new RunCommand(
@@ -101,7 +104,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driverLeftJoystick, 1).whenPressed(m_operatorSwitchGear);
+    new JoystickButton(m_driverLeftJoystick, 5).whenPressed(m_driverSwitchHigh);
+    new JoystickButton(m_driverRightJoystick, 6).whenPressed(m_driverSwitchLow);
     new JoystickButton(m_driverRightJoystick, 1).whenPressed(m_invertDrive);
     new JoystickButton(m_operatorController, XboxController.Button.kB.value).whenPressed(m_TeleopSlideOut);
     new JoystickButton(m_operatorController, XboxController.Button.kA.value).whenPressed(m_TeleopSlideIn);
