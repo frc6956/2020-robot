@@ -44,7 +44,8 @@ public class RobotContainer {
   //Commands
     //Driver
   private final Command m_splitArcadeJoystick = new RunCommand(
-    () -> m_drivetrain.arcadeDrive(-m_driverLeftJoystick.getY(), m_driverRightJoystick.getX()), m_drivetrain);
+    () -> m_drivetrain.arcadeDrive(m_driverRightJoystick.getY(), m_driverLeftJoystick.getX()), m_drivetrain);
+
   private final Command m_tankJoystick = new RunCommand(
     () -> m_drivetrain.tankDrive(-m_driverLeftJoystick.getY(), -m_driverRightJoystick.getY()), m_drivetrain);
 
