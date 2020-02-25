@@ -71,10 +71,10 @@ public class RobotContainer {
     () -> m_slide.actuateOut(), m_slide);
 
     private final Command m_SpinnerUp = new RunCommand(
-      () -> m_slide.actuateIn(), m_slide);
+      () -> m_spinner.up(), m_spinner);
   
     private final Command m_SpinnerDown = new RunCommand(
-      () -> m_slide.actuateOut(), m_slide);
+      () -> m_spinner.down(), m_spinner);
 
   private final SequentialCommandGroup m_AutoGrab = new SequentialCommandGroup(new Slide(m_slide),  new WaitCommand(2), new Slide(m_slide) );
 
