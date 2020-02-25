@@ -26,7 +26,7 @@ public class Conveyor extends SubsystemBase {
   }
 
   public void setConveyorSpeed(double speed) {
-    m_motor.set(speed);
+    m_motor.set(-speed);
   }
 
 }

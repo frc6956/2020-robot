@@ -34,6 +34,7 @@ public class RobotContainer {
   private final GyroPigeon m_gyro = new GyroPigeon();
   private final LinearSlide m_slide = new LinearSlide();
   private final ColorSpinner m_spinner = new ColorSpinner();
+  private final Shooter m_shooter = new Shooter();
 
   //OI Devices
   private final Joystick m_driverLeftJoystick = new Joystick(Constants.driverJoyLeft);
@@ -44,6 +45,8 @@ public class RobotContainer {
     //Driver
   private final Command m_splitArcadeJoystick = new RunCommand(
     () -> m_drivetrain.arcadeDrive(-m_driverLeftJoystick.getY(), m_driverRightJoystick.getX()), m_drivetrain);
+  private final Command m_tankJoystick = new RunCommand(
+    () -> m_drivetrain.tankDrive(-m_driverLeftJoystick.getY(), -m_driverRightJoystick.getY()), m_drivetrain);
 
   private final Command m_driverSwitchHigh = new RunCommand(
     () -> m_drivetrain.switchGear(), m_drivetrain);
@@ -62,7 +65,10 @@ public class RobotContainer {
     () -> m_conveyor.setConveyorSpeed(m_operatorController.getY(Hand.kLeft)), m_conveyor);
 
   private final Command m_TeleopFeeder = new RunCommand(
-    () -> m_feeder.setFeedSpeed(m_operatorController.getX(Hand.kRight)), m_feeder);
+    () -> m_feeder.setFeedSpeed(m_operatorController.getY(Hand.kRight)), m_feeder);
+
+  private final Command m_TeleopShooter = new RunCommand(
+    () -> m_shooter.setShooterSpeed(m_operatorController.getY(Hand.kRight)), m_shooter);
 
   private final Command m_TeleopSlideIn = new RunCommand(
     () -> m_slide.actuateIn(), m_slide);
@@ -90,6 +96,7 @@ public class RobotContainer {
     m_intake.setDefaultCommand(m_TeleopIntake);
     m_conveyor.setDefaultCommand(m_TeleopConveyor);
     m_feeder.setDefaultCommand(m_TeleopFeeder);
+    m_shooter.setDefaultCommand(m_TeleopShooter);
 
 		CameraServer.getInstance().startAutomaticCapture(0);
     CameraServer.getInstance().startAutomaticCapture(1);

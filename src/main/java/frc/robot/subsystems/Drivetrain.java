@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 public class Drivetrain extends SubsystemBase {
@@ -49,10 +50,20 @@ public class Drivetrain extends SubsystemBase {
     m_rightSPX2 = new WPI_VictorSPX(Constants.rightDriveSPX2);
 
     m_drive = new DifferentialDrive(m_leftSRX, m_rightSRX);
+
     m_leftSPX1.follow(m_leftSRX);
     m_leftSPX2.follow(m_leftSRX);
     m_rightSPX1.follow(m_rightSRX);
     m_rightSPX2.follow(m_rightSRX);
+
+    m_leftSRX.setInverted(InvertType.InvertMotorOutput);
+    m_leftSPX1.setInverted(InvertType.FollowMaster);
+    m_leftSPX2.setInverted(InvertType.FollowMaster);
+    m_rightSRX.setInverted(InvertType.None);
+    m_rightSPX1.setInverted(InvertType.FollowMaster);
+    m_rightSPX2.setInverted(InvertType.FollowMaster);
+
+    m_drive.setRightSideInverted(false);
 
     m_leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
     m_leftSRX.setSensorPhase(true);
