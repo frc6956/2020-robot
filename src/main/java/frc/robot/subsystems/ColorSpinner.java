@@ -45,9 +45,9 @@ public class ColorSpinner extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    rotating();
+   /* rotating();
     SmartDashboard.putNumber("Rotations", rotations);
-    displayColor();
+    displayColor();*/
   }
 
   public void resetRotations() {
@@ -110,7 +110,7 @@ public class ColorSpinner extends SubsystemBase {
   }
 
   public void setWheelSpeed(double speed) {
-    if(Math.abs(speed)>.001) {
+   /* if(Math.abs(speed)>.001) {
           rotating = true;
           setColor();
           if(speed>0) {
@@ -123,7 +123,7 @@ public class ColorSpinner extends SubsystemBase {
     else {
       rotating = false;
       matchedClr = "not Spinning";
-    }
+    }*/
     spinnerMotor.set(speed);
   }
 }

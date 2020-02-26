@@ -44,19 +44,19 @@ public class RobotContainer {
   //Commands
     //Driver
   private final Command m_splitArcadeJoystick = new RunCommand(
-    () -> m_drivetrain.arcadeDrive(m_driverRightJoystick.getY(), m_driverLeftJoystick.getX()), m_drivetrain);
+    () -> m_drivetrain.arcadeDrive(-m_driverRightJoystick.getY(), m_driverLeftJoystick.getX()), m_drivetrain);
 
   private final Command m_tankJoystick = new RunCommand(
     () -> m_drivetrain.tankDrive(-m_driverLeftJoystick.getY(), -m_driverRightJoystick.getY()), m_drivetrain);
 
-  private final Command m_driverSwitchHigh = new RunCommand(
-    () -> m_drivetrain.highGear(), m_drivetrain);
+  private final Command m_driverSwitchHigh = new InstantCommand(
+    () -> m_drivetrain.highGear());
   
-  private final Command m_driverSwitchLow = new RunCommand(
-    () -> m_drivetrain.lowGear(), m_drivetrain);
+  private final Command m_driverSwitchLow = new InstantCommand(
+    () -> m_drivetrain.lowGear());
 
-  private final Command m_invertDrive = new RunCommand(
-    () -> m_drivetrain.reverse(!m_drivetrain.isReversed()), m_drivetrain);
+  private final Command m_invertDrive = new InstantCommand(
+    () -> m_drivetrain.reverse(!m_drivetrain.isReversed()));
 
     //Operator
   private final Command m_TeleopIntake  = new RunCommand(
@@ -77,11 +77,17 @@ public class RobotContainer {
   private final Command m_TeleopSlideOut = new RunCommand(
     () -> m_slide.actuateOut(), m_slide);
 
-    private final Command m_SpinnerUp = new RunCommand(
-      () -> m_spinner.up(), m_spinner);
-  
-    private final Command m_SpinnerDown = new RunCommand(
-      () -> m_spinner.down(), m_spinner);
+  private final Command m_SpinnerUp = new RunCommand(
+    () -> m_spinner.up(), m_spinner);
+
+  private final Command m_SpinnerDown = new RunCommand(
+    () -> m_spinner.down(), m_spinner);
+
+    private final Command m_SpinnerSpin = new RunCommand(
+      () -> m_spinner.setWheelSpeed(0.5), m_spinner);
+
+      private final Command m_SpinnerStop = new RunCommand(
+        () -> m_spinner.setWheelSpeed(0), m_spinner);
 
   private final SequentialCommandGroup m_AutoGrab = new SequentialCommandGroup(new Slide(m_slide),  new WaitCommand(2), new Slide(m_slide) );
 
@@ -119,6 +125,9 @@ public class RobotContainer {
     new JoystickButton(m_operatorController, XboxController.Button.kA.value).whenPressed(m_TeleopSlideIn);
     new JoystickButton(m_operatorController, XboxController.Button.kX.value).whenPressed(m_SpinnerDown);
     new JoystickButton(m_operatorController, XboxController.Button.kY.value).whenPressed(m_SpinnerUp);
+    new JoystickButton(m_operatorController, XboxController.Button.kBumperLeft.value).whileHeld(m_SpinnerSpin);
+    new JoystickButton(m_operatorController, XboxController.Button.kBumperLeft.value).whenReleased(m_SpinnerStop
+    );
   }
 
 
