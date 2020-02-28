@@ -161,6 +161,12 @@ public class Drivetrain extends SubsystemBase {
     low = false;
   }
 
+  public void switchToHigh() {
+    if(doubleSolenoid.get() != DoubleSolenoid.Value.kForward) {
+      doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
+    }
+  }
+
   public void switchGear() {
     speedAverage = m_leftSRX.getSelectedSensorVelocity() * 10 / ticksPerInch;
     speedAverage += m_rightSRX.getSelectedSensorVelocity() * 10 / ticksPerInch;

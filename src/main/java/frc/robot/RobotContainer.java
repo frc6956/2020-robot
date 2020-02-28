@@ -55,6 +55,9 @@ public class RobotContainer {
   private final Command m_driverSwitchLow = new InstantCommand(
     () -> m_drivetrain.lowGear());
 
+  private final Command m_driverHighGear = new RunCommand(
+    () ->m_drivetrain.switchToHigh(), m_drivetrain);
+
   private final Command m_invertDrive = new InstantCommand(
     () -> m_drivetrain.reverse(!m_drivetrain.isReversed()));
 
@@ -118,16 +121,17 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driverLeftJoystick, 5).whenPressed(m_driverSwitchHigh);
-    new JoystickButton(m_driverRightJoystick, 6).whenPressed(m_driverSwitchLow);
+    //new JoystickButton(m_driverLeftJoystick, 5).whenPressed(m_driverSwitchHigh);
+    //new JoystickButton(m_driverRightJoystick, 6).whenPressed(m_driverSwitchLow);
+    new JoystickButton(m_driverRightJoystick, 6).whenHeld(m_driverHighGear);
+    new JoystickButton(m_driverRightJoystick, 6).whenReleased(m_driverSwitchLow);
     new JoystickButton(m_driverRightJoystick, 1).whenPressed(m_invertDrive);
     new JoystickButton(m_operatorController, XboxController.Button.kB.value).whenPressed(m_TeleopSlideOut);
     new JoystickButton(m_operatorController, XboxController.Button.kA.value).whenPressed(m_TeleopSlideIn);
     new JoystickButton(m_operatorController, XboxController.Button.kX.value).whenPressed(m_SpinnerDown);
     new JoystickButton(m_operatorController, XboxController.Button.kY.value).whenPressed(m_SpinnerUp);
     new JoystickButton(m_operatorController, XboxController.Button.kBumperLeft.value).whileHeld(m_SpinnerSpin);
-    new JoystickButton(m_operatorController, XboxController.Button.kBumperLeft.value).whenReleased(m_SpinnerStop
-    );
+    new JoystickButton(m_operatorController, XboxController.Button.kBumperLeft.value).whenReleased(m_SpinnerStop);
   }
 
 
