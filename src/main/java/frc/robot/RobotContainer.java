@@ -61,7 +61,7 @@ public class RobotContainer {
   private final Command m_invertDrive = new InstantCommand(
     () -> m_drivetrain.reverse(!m_drivetrain.isReversed()));
 
-    //Operator
+     //Operator
   private final Command m_TeleopIntake  = new RunCommand(
     () -> m_intake.setIntakeSpeed(-m_operatorController.getY(Hand.kLeft)), m_intake);
 
@@ -72,7 +72,7 @@ public class RobotContainer {
     () -> m_feeder.setFeedSpeed(m_operatorController.getY(Hand.kRight)), m_feeder);
 
   private final Command m_TeleopShooter = new RunCommand(
-    () -> m_shooter.setShooterSpeed(m_operatorController.getY(Hand.kRight)), m_shooter);
+    () -> m_shooter.setShooterSpeed(m_operatorController.getTriggerAxis(Hand.kRight)), m_shooter);
 
   private final Command m_TeleopSlideIn = new RunCommand(
     () -> m_slide.actuateIn(), m_slide);
@@ -86,11 +86,14 @@ public class RobotContainer {
   private final Command m_SpinnerDown = new RunCommand(
     () -> m_spinner.down(), m_spinner);
 
-    private final Command m_SpinnerSpin = new RunCommand(
-      () -> m_spinner.setWheelSpeed(0.5), m_spinner);
+  private final Command m_SpinnerSpinR = new RunCommand(
+    () -> m_spinner.setWheelSpeed(0.5), m_spinner);
 
-      private final Command m_SpinnerStop = new RunCommand(
-        () -> m_spinner.setWheelSpeed(0), m_spinner);
+  private final Command m_SpinnerSpinL = new RunCommand(
+    () -> m_spinner.setWheelSpeed(-0.5), m_spinner);
+  
+  private final Command m_SpinnerStop = new RunCommand(
+    () -> m_spinner.setWheelSpeed(0), m_spinner);
 
   private final SequentialCommandGroup m_AutoGrab = new SequentialCommandGroup(new Slide(m_slide),  new WaitCommand(2), new Slide(m_slide) );
 
@@ -121,17 +124,24 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
+//Driver Configs
     //new JoystickButton(m_driverLeftJoystick, 5).whenPressed(m_driverSwitchHigh);
     //new JoystickButton(m_driverRightJoystick, 6).whenPressed(m_driverSwitchLow);
     new JoystickButton(m_driverRightJoystick, 6).whenHeld(m_driverHighGear);
     new JoystickButton(m_driverRightJoystick, 6).whenReleased(m_driverSwitchLow);
     new JoystickButton(m_driverRightJoystick, 1).whenPressed(m_invertDrive);
-    new JoystickButton(m_operatorController, XboxController.Button.kB.value).whenPressed(m_TeleopSlideOut);
-    new JoystickButton(m_operatorController, XboxController.Button.kA.value).whenPressed(m_TeleopSlideIn);
-    new JoystickButton(m_operatorController, XboxController.Button.kX.value).whenPressed(m_SpinnerDown);
+
+//Operator Configs
     new JoystickButton(m_operatorController, XboxController.Button.kY.value).whenPressed(m_SpinnerUp);
-    new JoystickButton(m_operatorController, XboxController.Button.kBumperLeft.value).whileHeld(m_SpinnerSpin);
+    new JoystickButton(m_operatorController, XboxController.Button.kX.value).whenPressed(m_SpinnerDown);
+    new JoystickButton(m_operatorController, XboxController.Button.kA.value).whenPressed(m_TeleopSlideIn);
+    new JoystickButton(m_operatorController, XboxController.Button.kB.value).whenPressed(m_TeleopSlideOut);
+
+    new JoystickButton(m_operatorController, XboxController.Button.kBumperLeft.value).whileHeld(m_SpinnerSpinL);
     new JoystickButton(m_operatorController, XboxController.Button.kBumperLeft.value).whenReleased(m_SpinnerStop);
+    new JoystickButton(m_operatorController, XboxController.Button.kBumperRight.value).whileHeld(m_SpinnerSpinR);
+    new JoystickButton(m_operatorController, XboxController.Button.kBumperRight.value).whenReleased(m_SpinnerStop);
   }
 
 
