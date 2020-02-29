@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class LinearSlide extends SubsystemBase {
-    private DoubleSolenoid m_slideSolenoid = new DoubleSolenoid(Constants.slideIn, Constants.slideOut);
+    private DoubleSolenoid m_slideSolenoid = new DoubleSolenoid(Constants.PCM.slideIn, Constants.PCM.slideOut);
 
     public LinearSlide() {
 

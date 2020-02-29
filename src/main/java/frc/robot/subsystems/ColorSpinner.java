@@ -23,7 +23,7 @@ public class ColorSpinner extends SubsystemBase {
    */
    private String[] clrOrder = {"red", "green", "blue", "yellow"};
    String matchedClr = "not Spinning";
-   private WPI_TalonSRX spinnerMotor = new WPI_TalonSRX(Constants.spinner);
+   private WPI_TalonSRX spinnerMotor = new WPI_TalonSRX(Constants.CAN.spinner);
    private ColorSensorV3 clrSensor = new ColorSensorV3(I2C.Port.kOnboard);
    private ColorMatch clrMatch = new ColorMatch();
    private boolean rotating = false;
@@ -32,7 +32,7 @@ public class ColorSpinner extends SubsystemBase {
    private int index = -1; 
    private double rotations = 0;
 
-   DoubleSolenoid doubleSolenoid = new DoubleSolenoid(Constants.spinnerUp, Constants.spinnerDown);
+   DoubleSolenoid doubleSolenoid = new DoubleSolenoid(Constants.PCM.spinnerUp, Constants.PCM.spinnerDown);
    
 
   public ColorSpinner() {

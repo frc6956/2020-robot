@@ -17,32 +17,38 @@ package frc.robot;
  */
 public final class Constants {
     // USB
-	public static final int driveController = 0;
-	public static final int operatorController = 1;
-	public static final int driverJoyLeft = 2;
-	public static final int driverJoyRight = 3;
+    public final class USB {
+        public static final int driveController = 0;
+        public static final int operatorController = 1;
+        public static final int driverJoyLeft = 2;
+        public static final int driverJoyRight = 3;
+    }
 
-	// CAN
-	public static final int leftDriveMotor = 1;
-	public static final int leftDriveSPX1 = 1;
-	public static final int leftDriveSPX2 = 3;
-	public static final int rightDriveMotor = 2;
-	public static final int rightDriveSPX1 = 2;
-    public static final int rightDriveSPX2 = 4;
-    public static final int intakeMotor = 5;
-    public static final int conveyorMotor = 7;
-    public static final int feederMotor = 6;
-    public static final int shooterLeft = 5;
-    public static final int shooterRight = 4;
-	public static final int spinner = 3;
+    // CAN
+    public final class CAN {
+        public static final int leftDriveMotor = 1;
+        public static final int leftDriveSPX1 = 1;
+        public static final int leftDriveSPX2 = 3;
+        public static final int rightDriveMotor = 2;
+        public static final int rightDriveSPX1 = 2;
+        public static final int rightDriveSPX2 = 4;
+        public static final int intakeMotor = 5;
+        public static final int conveyorMotor = 7;
+        public static final int feederMotor = 6;
+        public static final int shooterLeft = 5;
+        public static final int shooterRight = 4;
+        public static final int spinner = 3;
+    }
 	
     //PCM
-	public static final int spinnerUp = 1;
-	public static final int spinnerDown = 0;
-	public static final int slideIn = 6;
-	public static final int slideOut = 7;
-	public static final int driveHigh = 3;
-	public static final int driveLow = 2;
+    public final class PCM {
+        public static final int spinnerUp = 1;
+        public static final int spinnerDown = 0;
+        public static final int slideIn = 6;
+        public static final int slideOut = 7;
+        public static final int driveHigh = 3;
+        public static final int driveLow = 2;
+    }
 	
     //Digital Imports
 }

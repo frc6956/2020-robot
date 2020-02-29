@@ -37,9 +37,9 @@ public class RobotContainer {
   private final Shooter m_shooter = new Shooter();
 
   //OI Devices
-  private final Joystick m_driverLeftJoystick = new Joystick(Constants.driverJoyLeft);
-  private final Joystick m_driverRightJoystick = new Joystick(Constants.driverJoyRight);
-  private final XboxController m_operatorController = new XboxController(Constants.operatorController);
+  private final Joystick m_driverLeftJoystick = new Joystick(Constants.USB.driverJoyLeft);
+  private final Joystick m_driverRightJoystick = new Joystick(Constants.USB.driverJoyRight);
+  private final XboxController m_operatorController = new XboxController(Constants.USB.operatorController);
 
   //Commands
     //Driver

@@ -17,7 +17,7 @@ public class Feeder extends SubsystemBase {
 private WPI_VictorSPX m_motor;
 
   public Feeder() {
-    m_motor = new WPI_VictorSPX(Constants.feederMotor);
+    m_motor = new WPI_VictorSPX(Constants.CAN.feederMotor);
   }
 
   @Override

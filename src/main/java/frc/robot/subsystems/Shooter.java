@@ -18,8 +18,8 @@ public class Shooter extends SubsystemBase {
   private final WPI_TalonSRX m_right;
 
   public Shooter() {
-      m_left = new WPI_TalonSRX(Constants.shooterLeft);
-      m_right = new WPI_TalonSRX(Constants.shooterRight);
+      m_left = new WPI_TalonSRX(Constants.CAN.shooterLeft);
+      m_right = new WPI_TalonSRX(Constants.CAN.shooterRight);
   }
 
   @Override

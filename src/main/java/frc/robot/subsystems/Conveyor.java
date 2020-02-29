@@ -17,7 +17,7 @@ public class Conveyor extends SubsystemBase {
   private WPI_VictorSPX m_motor;
 
   public Conveyor() {
-    m_motor = new WPI_VictorSPX(Constants.conveyorMotor);
+    m_motor = new WPI_VictorSPX(Constants.CAN.conveyorMotor);
   }
 
   @Override

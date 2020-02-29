@@ -19,7 +19,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 public class Drivetrain extends SubsystemBase {
   
-  DoubleSolenoid doubleSolenoid = new DoubleSolenoid(Constants.driveLow, Constants.driveHigh);
+  DoubleSolenoid doubleSolenoid = new DoubleSolenoid(Constants.PCM.driveLow, Constants.PCM.driveHigh);
   private final DifferentialDrive m_drive;
 
   private final WPI_TalonSRX m_leftSRX;
@@ -40,13 +40,13 @@ public class Drivetrain extends SubsystemBase {
   private double speedDifference = 0;
 
   public Drivetrain() {
-    m_leftSRX = new WPI_TalonSRX(Constants.leftDriveMotor);
-    m_leftSPX1 = new WPI_VictorSPX(Constants.leftDriveSPX1);
-    m_leftSPX2 = new WPI_VictorSPX(Constants.leftDriveSPX2);
+    m_leftSRX = new WPI_TalonSRX(Constants.CAN.leftDriveMotor);
+    m_leftSPX1 = new WPI_VictorSPX(Constants.CAN.leftDriveSPX1);
+    m_leftSPX2 = new WPI_VictorSPX(Constants.CAN.leftDriveSPX2);
     
-    m_rightSRX = new WPI_TalonSRX(Constants.rightDriveMotor);
-    m_rightSPX1 = new WPI_VictorSPX(Constants.rightDriveSPX1);
-    m_rightSPX2 = new WPI_VictorSPX(Constants.rightDriveSPX2);
+    m_rightSRX = new WPI_TalonSRX(Constants.CAN.rightDriveMotor);
+    m_rightSPX1 = new WPI_VictorSPX(Constants.CAN.rightDriveSPX1);
+    m_rightSPX2 = new WPI_VictorSPX(Constants.CAN.rightDriveSPX2);
 
     m_drive = new DifferentialDrive(m_leftSRX, m_rightSRX);
 

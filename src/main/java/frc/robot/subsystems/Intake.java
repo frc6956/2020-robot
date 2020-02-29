@@ -16,7 +16,7 @@ public class Intake extends SubsystemBase {
   private WPI_VictorSPX m_motor;
 
   public Intake() {
-    m_motor = new WPI_VictorSPX(Constants.intakeMotor);
+    m_motor = new WPI_VictorSPX(Constants.CAN.intakeMotor);
   }
 
   @Override
