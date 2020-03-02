@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -48,10 +49,15 @@ public class ColorSpinner extends SubsystemBase {
    /* rotating();
     SmartDashboard.putNumber("Rotations", rotations);
     displayColor();*/
+    desiredColor();
   }
 
   public void resetRotations() {
     rotations = 0;
+  }
+
+  public void desiredColor() {
+    SmartDashboard.putString("Required Color", DriverStation.getInstance().getGameSpecificMessage());
   }
 
   public void rotating() {
