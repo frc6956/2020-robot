@@ -15,6 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+/**
+ * The 2 big angled wheels.
+ */
 public class Shooter extends SubsystemBase {
   
   private final WPI_TalonSRX m_left;
