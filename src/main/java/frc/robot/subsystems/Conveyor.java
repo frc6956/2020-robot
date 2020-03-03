@@ -12,6 +12,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+
+/**
+ * Inside belts of the robot
+ */
 public class Conveyor extends SubsystemBase {
   
   private WPI_VictorSPX m_motor;

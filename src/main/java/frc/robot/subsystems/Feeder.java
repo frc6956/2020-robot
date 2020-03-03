@@ -14,6 +14,10 @@ import frc.robot.Constants;
 
 public class Feeder extends SubsystemBase {
   
+/**
+ * 4in wheels on top of robot
+ */
+
 private WPI_VictorSPX m_motor;
 
   public Feeder() {

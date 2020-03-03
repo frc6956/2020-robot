@@ -35,7 +35,9 @@ public class ColorSpinner extends SubsystemBase {
 
    DoubleSolenoid doubleSolenoid = new DoubleSolenoid(Constants.PCM.spinnerUp, Constants.PCM.spinnerDown);
    
-
+  /**
+   * adds color for the color sensor to compare agianst
+   */
   public ColorSpinner() {
     clrMatch.addColorMatch(Color.kAqua);
     clrMatch.addColorMatch(Color.kRed);
@@ -56,10 +58,19 @@ public class ColorSpinner extends SubsystemBase {
     rotations = 0;
   }
 
+
+/**
+ * gets the color that the control panel needs to be set to for stage 3
+ */
   public void desiredColor() {
     SmartDashboard.putString("Required Color", DriverStation.getInstance().getGameSpecificMessage());
   }
 
+  /**
+   * Tests to see if the color seem by the color sensor is the next predicted color
+   * If it is increase amount of rotation made if not
+   * Do nothing just recheck color in next iteration
+   */
   public void rotating() {
     Color seenColor = clrMatch.matchClosestColor(clrSensor.getColor()).color;
     int seenIndex = getIndex(seenColor);
@@ -91,7 +102,7 @@ public class ColorSpinner extends SubsystemBase {
     return -1;
   }
 
-
+  
   public void displayRGB() {
     SmartDashboard.putNumber("Red:", clrSensor.getRed());
     SmartDashboard.putNumber("Green:", clrSensor.getGreen());
@@ -103,12 +114,20 @@ public class ColorSpinner extends SubsystemBase {
     SmartDashboard.putNumber("Color Confidnece", clrMatch.matchClosestColor(clrSensor.getColor()).confidence);
   }
 
+
+  /**
+   * Will bring up color Spinner
+   */
   public void up() {
     if (doubleSolenoid.get() != DoubleSolenoid.Value.kReverse) {
       doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
+      resetRotations();
     }
   }
 
+  /**
+   * Will put down color Spinner
+   */
   public void down() {
     if (doubleSolenoid.get() != DoubleSolenoid.Value.kForward) {
       doubleSolenoid.set(DoubleSolenoid.Value.kForward);

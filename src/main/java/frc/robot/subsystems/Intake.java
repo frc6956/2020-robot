@@ -11,6 +11,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+/**
+ * The mouth of the Hungry Hippo
+ */
 public class Intake extends SubsystemBase {
   
   private WPI_VictorSPX m_motor;

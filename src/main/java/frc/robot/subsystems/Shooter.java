@@ -12,6 +12,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+/**
+ * The 2 big angled wheels.
+ */
 public class Shooter extends SubsystemBase {
   
   private final WPI_TalonSRX m_left;
