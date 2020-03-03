@@ -59,9 +59,6 @@ public class RobotContainer {
   private final Command m_driverSwitchLow = new InstantCommand(
     () -> m_drivetrain.lowGear());
 
-  private final Command m_driverHighGear = new RunCommand(
-    () ->m_drivetrain.switchToHigh(), m_drivetrain);
-
   private final Command m_invertDrive = new InstantCommand(
     () -> m_drivetrain.reverse(!m_drivetrain.isReversed()));
 
@@ -91,10 +88,10 @@ public class RobotContainer {
     () -> m_spinner.down(), m_spinner);
 
   private final Command m_SpinnerSpinR = new RunCommand(
-    () -> m_spinner.setWheelSpeed(0.5), m_spinner);
+    () -> m_spinner.setRPM(640), m_spinner);
 
   private final Command m_SpinnerSpinL = new RunCommand(
-    () -> m_spinner.setWheelSpeed(-0.5), m_spinner);
+    () -> m_spinner.setRPM(-640), m_spinner);
   
   private final Command m_SpinnerStop = new RunCommand(
     () -> m_spinner.setWheelSpeed(0), m_spinner);
@@ -116,7 +113,6 @@ public class RobotContainer {
     m_shooter.setDefaultCommand(m_TeleopShooter);
 
 		CameraServer.getInstance().startAutomaticCapture(0);
-    CameraServer.getInstance().startAutomaticCapture(1);
     
     configureButtonBindings();
 
@@ -140,7 +136,7 @@ public class RobotContainer {
 //Driver Configs
     //new JoystickButton(m_driverLeftJoystick, 5).whenPressed(m_driverSwitchHigh);
     //new JoystickButton(m_driverRightJoystick, 6).whenPressed(m_driverSwitchLow);
-    new JoystickButton(m_driverRightJoystick, 6).whenHeld(m_driverHighGear);
+    new JoystickButton(m_driverRightJoystick, 6).whenPressed(m_driverSwitchHigh);
     new JoystickButton(m_driverRightJoystick, 6).whenReleased(m_driverSwitchLow);
     new JoystickButton(m_driverRightJoystick, 1).whenPressed(m_invertDrive);
 

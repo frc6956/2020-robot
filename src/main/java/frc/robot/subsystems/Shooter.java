@@ -7,8 +7,11 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -20,15 +23,40 @@ public class Shooter extends SubsystemBase {
   public Shooter() {
       m_left = new WPI_TalonSRX(Constants.CAN.shooterLeft);
       m_right = new WPI_TalonSRX(Constants.CAN.shooterRight);
+
+      m_left.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+      m_right.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+
+      m_right.setInverted(true);
+
+      double p = 0.01;
+      m_left.config_kP(0, p);
+      m_right.config_kP(0, p);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Left Shooter Speed", getLeftShooterRPM());
+    SmartDashboard.putNumber("Right Shooter Speed", getRightShooterRPM());
   }
 
   public void setShooterSpeed(double speed) {
-    m_left.set(-speed);
+    m_left.set(speed);
     m_right.set(speed);
+  }
+
+  public void setShooterRPM(double rpm) {
+    double output = rpm * Constants.Shooter.ticsPerRev / 10 / 60;
+    m_left.set(ControlMode.Velocity, output);
+    m_right.set(ControlMode.Velocity, output);
+  }
+
+  public double getLeftShooterRPM() {
+    return m_left.getSelectedSensorVelocity() * 10 * 60 / Constants.Shooter.ticsPerRev;
+  }
+
+  public double getRightShooterRPM() {
+    return m_right.getSelectedSensorVelocity() * 10 * 60 / Constants.Shooter.ticsPerRev;
   }
 }

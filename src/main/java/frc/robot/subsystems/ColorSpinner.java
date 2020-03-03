@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.*;
 import frc.robot.Constants;
@@ -41,11 +42,13 @@ public class ColorSpinner extends SubsystemBase {
     clrMatch.addColorMatch(Color.kRed);
     clrMatch.addColorMatch(Color.kYellow);
     clrMatch.addColorMatch(Color.kLime);
+    spinnerMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Spinner Speed", getRPM());
    /* rotating();
     SmartDashboard.putNumber("Rotations", rotations);
     displayColor();*/
@@ -131,5 +134,14 @@ public class ColorSpinner extends SubsystemBase {
       matchedClr = "not Spinning";
     }*/
     spinnerMotor.set(speed);
+  }
+
+  public void setRPM(double rpm) {
+    double voltage = rpm / Constants.ColorSpinner.kRPMPerVolt;
+    spinnerMotor.setVoltage(voltage);
+  }
+
+  public double getRPM() {
+    return spinnerMotor.getSelectedSensorVelocity() * 10 * 60 / Constants.ColorSpinner.kTicksPerRev;
   }
 }

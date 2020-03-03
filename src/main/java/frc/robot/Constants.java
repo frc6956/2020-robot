@@ -51,8 +51,19 @@ public final class Constants {
     }
 	
     //Digital Imports
+    public final class DIO {
+
+    }
 
     public final class Shooter {
-        public static final int ticsPerRev = 360;
+        // 360 ticks per revolution * 4 quadrature ticks
+        public static final int ticsPerRev = 360 * 4;
+        public static final int kMaxRPM = 4500;
+    }
+
+    public final class ColorSpinner {
+        // 7 ticks per revolution * 4 quadrature ticks * 4:1 gear reduction
+        public static final int kTicksPerRev = 7 * 4 * 4;
+        public static final int kRPMPerVolt = 475 / 4;
     }
 }
