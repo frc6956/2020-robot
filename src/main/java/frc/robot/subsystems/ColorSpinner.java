@@ -60,7 +60,7 @@ public class ColorSpinner extends SubsystemBase {
 
 
 /**
- * gets the color that the control panel needs to be set to for stage 3
+ * Gets the color that the control panel needs to be set to for stage 3
  */
   public void desiredColor() {
     SmartDashboard.putString("Required Color", DriverStation.getInstance().getGameSpecificMessage());
@@ -102,7 +102,7 @@ public class ColorSpinner extends SubsystemBase {
     return -1;
   }
 
-  
+
   public void displayRGB() {
     SmartDashboard.putNumber("Red:", clrSensor.getRed());
     SmartDashboard.putNumber("Green:", clrSensor.getGreen());
