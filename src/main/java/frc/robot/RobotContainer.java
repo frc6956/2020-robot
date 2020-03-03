@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.commands.*;
@@ -40,6 +42,8 @@ public class RobotContainer {
   private final Joystick m_driverLeftJoystick = new Joystick(Constants.USB.driverJoyLeft);
   private final Joystick m_driverRightJoystick = new Joystick(Constants.USB.driverJoyRight);
   private final XboxController m_operatorController = new XboxController(Constants.USB.operatorController);
+  
+  SendableChooser<SequentialCommandGroup> m_chooser = new SendableChooser<>();
 
   //Commands
     //Driver
@@ -115,7 +119,15 @@ public class RobotContainer {
     CameraServer.getInstance().startAutomaticCapture(1);
     
     configureButtonBindings();
+
   }
+
+  public SequentialCommandGroup AutonOptions() {
+    m_chooser.setDefaultOption("Do nothing", null);
+    m_chooser.addOption("Drive n' Turn", new SequentialCommandGroup(new DriveDistancePID(m_drivetrain, m_gyro, 120), new TurnAnglePID(m_drivetrain, m_gyro, 180) ));
+    SmartDashboard.putData("Auto mode", m_chooser);
+    return  m_chooser.getSelected();
+  } 
 
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
@@ -152,6 +164,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new SequentialCommandGroup(new DriveDistancePID(m_drivetrain, m_gyro, 120), new TurnAnglePID(m_drivetrain, m_gyro, 180) );
+    //return new SequentialCommandGroup(new DriveDistancePID(m_drivetrain, m_gyro, 120), new TurnAnglePID(m_drivetrain, m_gyro, 180) );
+    return AutonOptions();
   }
 }

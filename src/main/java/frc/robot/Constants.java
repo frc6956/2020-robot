@@ -51,4 +51,8 @@ public final class Constants {
     }
 	
     //Digital Imports
+
+    public final class Shooter {
+        public static final int ticsPerRev = 360;
+    }
 }
