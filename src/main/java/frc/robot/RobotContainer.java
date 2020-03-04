@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -111,6 +112,7 @@ public class RobotContainer {
     m_conveyor.setDefaultCommand(m_TeleopConveyor);
     m_feeder.setDefaultCommand(m_TeleopFeeder);
     m_shooter.setDefaultCommand(m_TeleopShooter);
+    SmartDashboard.putData("PDP", new PowerDistributionPanel());
 
 		CameraServer.getInstance().startAutomaticCapture(0);
     
