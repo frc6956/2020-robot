@@ -112,18 +112,14 @@ public class RobotContainer {
     m_feeder.setDefaultCommand(m_TeleopFeeder);
     m_shooter.setDefaultCommand(m_TeleopShooter);
 
-		CameraServer.getInstance().startAutomaticCapture(0);
+	CameraServer.getInstance().startAutomaticCapture(0);
     
     configureButtonBindings();
 
-  }
-
-  public SequentialCommandGroup AutonOptions() {
     m_chooser.setDefaultOption("Do nothing", null);
     m_chooser.addOption("Drive n' Turn", new SequentialCommandGroup(new DriveDistancePID(m_drivetrain, m_gyro, 120), new TurnAnglePID(m_drivetrain, m_gyro, 180) ));
     SmartDashboard.putData("Auto mode", m_chooser);
-    return  m_chooser.getSelected();
-  } 
+  }
 
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
@@ -161,6 +157,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     //return new SequentialCommandGroup(new DriveDistancePID(m_drivetrain, m_gyro, 120), new TurnAnglePID(m_drivetrain, m_gyro, 180) );
-    return AutonOptions();
+    return m_chooser.getSelected();
   }
 }
