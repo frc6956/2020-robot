@@ -113,6 +113,7 @@ public class RobotContainer {
     m_conveyor.setDefaultCommand(m_TeleopConveyor);
     m_feeder.setDefaultCommand(m_TeleopFeeder);
     m_shooter.setDefaultCommand(m_TeleopShooter);
+    SmartDashboard.putData("PDP", new PowerDistributionPanel());
 
     CameraServer.getInstance().startAutomaticCapture(0);
     
@@ -121,6 +122,7 @@ public class RobotContainer {
     configureButtonBindings();
 
     m_chooser.setDefaultOption("Do nothing", null);
+    m_chooser.addOption("Drive", new SequentialCommandGroup(new DriveDistancePID(m_drivetrain, m_gyro, 120)));
     m_chooser.addOption("Drive n' Turn", new SequentialCommandGroup(new DriveDistancePID(m_drivetrain, m_gyro, 120), new TurnAnglePID(m_drivetrain, m_gyro, 180) ));
     SmartDashboard.putData("Auto mode", m_chooser);
   }

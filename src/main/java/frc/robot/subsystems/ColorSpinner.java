@@ -30,6 +30,7 @@ public class ColorSpinner extends SubsystemBase {
    private ColorMatch clrMatch = new ColorMatch();
    private boolean rotating = false;
    private boolean clockwise = false;
+   private boolean up = false;
    private Color matchedColor;
    private int index = -1; 
    private double rotations = 0;
@@ -125,6 +126,7 @@ public class ColorSpinner extends SubsystemBase {
     if (doubleSolenoid.get() != DoubleSolenoid.Value.kReverse) {
       doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
       resetRotations();
+      up = true;
     }
   }
 
@@ -134,6 +136,7 @@ public class ColorSpinner extends SubsystemBase {
   public void down() {
     if (doubleSolenoid.get() != DoubleSolenoid.Value.kForward) {
       doubleSolenoid.set(DoubleSolenoid.Value.kForward);
+      up= false;
     }
   }
 
@@ -152,12 +155,16 @@ public class ColorSpinner extends SubsystemBase {
       rotating = false;
       matchedClr = "not Spinning";
     }*/
-    spinnerMotor.set(speed);
+    if(up) {
+      spinnerMotor.set(speed);
+    }
   }
 
   public void setRPM(double rpm) {
     double voltage = rpm / Constants.ColorSpinner.kRPMPerVolt;
-    spinnerMotor.setVoltage(voltage);
+    if(up) {
+      spinnerMotor.setVoltage(voltage);
+    }
   }
 
   public double getRPM() {
