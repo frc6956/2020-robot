@@ -34,7 +34,7 @@ public class Drivetrain extends SubsystemBase {
   private double zeroDistance = 0;
   private boolean reverse = false;
   private boolean low = true;
-  private final double ticksPerInch = 4096 / (8 * Math.PI);
+  
 
   private double speedAverage = 0;
   private double speedDifference = 0;
@@ -73,6 +73,7 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     displayDistance();
+    calculateSpeed();
   }
 
   public void displayDistance() {
@@ -142,8 +143,8 @@ public class Drivetrain extends SubsystemBase {
    * @return Raw non-zeroed distance
    */
   protected double getRawDistanceTravelled() {
-    double total = m_leftSRX.getSelectedSensorPosition(0) / ticksPerInch;
-    total += m_rightSRX.getSelectedSensorPosition(0) / ticksPerInch;
+    double total = m_leftSRX.getSelectedSensorPosition(0) / Constants.DrivetrainConstants.ticksPerInch;
+    total += m_rightSRX.getSelectedSensorPosition(0) / Constants.DrivetrainConstants.ticksPerInch;
     return (total / 2);
   }
 
@@ -167,10 +168,18 @@ public class Drivetrain extends SubsystemBase {
     }
   }
 
-  public void switchGear() {
-    speedAverage = m_leftSRX.getSelectedSensorVelocity() * 10 / ticksPerInch;
-    speedAverage += m_rightSRX.getSelectedSensorVelocity() * 10 / ticksPerInch;
+  public void calculateSpeed() {
+    speedAverage = m_leftSRX.getSelectedSensorVelocity() * 10 / Constants.DrivetrainConstants.ticksPerInch;
+    speedAverage += m_rightSRX.getSelectedSensorVelocity() * 10 / Constants.DrivetrainConstants.ticksPerInch;
     speedAverage /= 2;
+    //to convert from inches per second to feet per second
+    speedAverage /=12;
+    SmartDashboard.putNumber("Speed", speedAverage);
+  }
+
+
+  public void switchGear() {
+    
 
     speedDifference = Math.abs(m_leftSRX.getSelectedSensorVelocity() - m_rightSRX.getSelectedSensorVelocity() );
 

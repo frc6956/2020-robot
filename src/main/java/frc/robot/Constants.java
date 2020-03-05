@@ -70,6 +70,10 @@ public final class Constants {
 
     }
 
+    public final class DrivetrainConstants {
+        public static final double ticksPerInch = 4096 / (8 * Math.PI);
+    }
+
     public final class Shooter {
         // 360 ticks per revolution * 4 quadrature ticks
         public static final int ticsPerRev = 360 * 4;
