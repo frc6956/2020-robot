@@ -39,6 +39,21 @@ public final class Constants {
         public static final int shooterRight = 4;
         public static final int spinner = 3;
     }
+
+    public final class PDP {
+        public static final int leftDriveMotor = 0;
+        public static final int leftDriveSPX1 = 1;
+        public static final int leftDriveSPX2 = 2;
+        public static final int rightDriveMotor = 15;
+        public static final int rightDriveSPX1 = 14;
+        public static final int rightDriveSPX2 = 13;
+        public static final int intakeMotor = 5;
+        public static final int conveyorMotor = 6;
+        public static final int feederMotor = 6;
+        public static final int shooterLeft = 5;
+        public static final int shooterRight = 4;
+        public static final int spinner = 3;
+    }
 	
     //PCM
     public final class PCM {
