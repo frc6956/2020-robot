@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.*;
 import frc.robot.Constants;
@@ -30,6 +31,7 @@ public class ColorSpinner extends SubsystemBase {
    private ColorMatch clrMatch = new ColorMatch();
    private boolean rotating = false;
    private boolean clockwise = false;
+   private boolean up = false;
    private Color matchedColor;
    private int index = -1; 
    private double rotations = 0;
@@ -44,11 +46,13 @@ public class ColorSpinner extends SubsystemBase {
     clrMatch.addColorMatch(Color.kRed);
     clrMatch.addColorMatch(Color.kYellow);
     clrMatch.addColorMatch(Color.kLime);
+    spinnerMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Spinner Speed", getRPM());
    /* rotating();
     SmartDashboard.putNumber("Rotations", rotations);
     displayColor();*/
@@ -123,6 +127,7 @@ public class ColorSpinner extends SubsystemBase {
     if (doubleSolenoid.get() != DoubleSolenoid.Value.kReverse) {
       doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
       resetRotations();
+      up = true;
     }
   }
 
@@ -132,6 +137,7 @@ public class ColorSpinner extends SubsystemBase {
   public void down() {
     if (doubleSolenoid.get() != DoubleSolenoid.Value.kForward) {
       doubleSolenoid.set(DoubleSolenoid.Value.kForward);
+      up= false;
     }
   }
 
@@ -150,6 +156,19 @@ public class ColorSpinner extends SubsystemBase {
       rotating = false;
       matchedClr = "not Spinning";
     }*/
-    spinnerMotor.set(speed);
+    if(up) {
+      spinnerMotor.set(speed);
+    }
+  }
+
+  public void setRPM(double rpm) {
+    double voltage = rpm / Constants.ColorSpinner.kRPMPerVolt;
+    if(up) {
+      spinnerMotor.setVoltage(voltage);
+    }
+  }
+
+  public double getRPM() {
+    return spinnerMotor.getSelectedSensorVelocity() * 10 * 60 / Constants.ColorSpinner.kTicksPerRev;
   }
 }

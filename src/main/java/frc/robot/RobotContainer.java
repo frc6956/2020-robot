@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -29,9 +30,10 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   //Subsystems
+  private final PowerDistributionPanel m_pdp = new PowerDistributionPanel();
   private final Drivetrain m_drivetrain = new Drivetrain();
   private final Intake m_intake = new Intake();
-  private final Conveyor m_conveyor = new Conveyor();
+  private final Conveyor m_conveyor = new Conveyor(m_pdp);
   private final Feeder m_feeder = new Feeder();
   private final GyroPigeon m_gyro = new GyroPigeon();
   private final LinearSlide m_slide = new LinearSlide();
@@ -88,10 +90,10 @@ public class RobotContainer {
     () -> m_spinner.down(), m_spinner);
 
   private final Command m_SpinnerSpinR = new RunCommand(
-    () -> m_spinner.setWheelSpeed(0.5), m_spinner);
+    () -> m_spinner.setRPM(640), m_spinner);
 
   private final Command m_SpinnerSpinL = new RunCommand(
-    () -> m_spinner.setWheelSpeed(-0.5), m_spinner);
+    () -> m_spinner.setRPM(-640), m_spinner);
   
   private final Command m_SpinnerStop = new RunCommand(
     () -> m_spinner.setWheelSpeed(0), m_spinner);
@@ -112,19 +114,17 @@ public class RobotContainer {
     m_feeder.setDefaultCommand(m_TeleopFeeder);
     m_shooter.setDefaultCommand(m_TeleopShooter);
 
-		CameraServer.getInstance().startAutomaticCapture(0);
-    CameraServer.getInstance().startAutomaticCapture(1);
+    CameraServer.getInstance().startAutomaticCapture(0);
+    
+    SmartDashboard.putData(m_pdp);
     
     configureButtonBindings();
 
-  }
-
-  public SequentialCommandGroup AutonOptions() {
     m_chooser.setDefaultOption("Do nothing", null);
+    m_chooser.addOption("Drive", new SequentialCommandGroup(new DriveDistancePID(m_drivetrain, m_gyro, 120)));
     m_chooser.addOption("Drive n' Turn", new SequentialCommandGroup(new DriveDistancePID(m_drivetrain, m_gyro, 120), new TurnAnglePID(m_drivetrain, m_gyro, 180) ));
     SmartDashboard.putData("Auto mode", m_chooser);
-    return  m_chooser.getSelected();
-  } 
+  }
 
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
@@ -137,7 +137,8 @@ public class RobotContainer {
 //Driver Configs
     //new JoystickButton(m_driverLeftJoystick, 5).whenPressed(m_driverSwitchHigh);
     //new JoystickButton(m_driverRightJoystick, 6).whenPressed(m_driverSwitchLow);
-    new JoystickButton(m_driverRightJoystick, 6).whenHeld(m_driverSwitchHigh);
+    new JoystickButton(m_driverRightJoystick, 6).whenPressed(m_driverSwitchHigh);
+    
     new JoystickButton(m_driverRightJoystick, 6).whenReleased(m_driverSwitchLow);
     new JoystickButton(m_driverRightJoystick, 1).whenPressed(m_invertDrive);
 
@@ -162,6 +163,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     //return new SequentialCommandGroup(new DriveDistancePID(m_drivetrain, m_gyro, 120), new TurnAnglePID(m_drivetrain, m_gyro, 180) );
-    return AutonOptions();
+    return m_chooser.getSelected();
   }
 }

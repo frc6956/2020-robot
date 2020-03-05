@@ -9,6 +9,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -19,14 +21,17 @@ import frc.robot.Constants;
 public class Conveyor extends SubsystemBase {
   
   private WPI_VictorSPX m_motor;
+  private PowerDistributionPanel m_pdp;
 
-  public Conveyor() {
+  public Conveyor(PowerDistributionPanel pdp) {
     m_motor = new WPI_VictorSPX(Constants.CAN.conveyorMotor);
+    m_pdp = pdp;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Conveyor Current", m_pdp.getCurrent(Constants.PDP.conveyorMotor));
   }
 
   /**

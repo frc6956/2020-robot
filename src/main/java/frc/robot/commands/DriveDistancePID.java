@@ -46,6 +46,12 @@ public class DriveDistancePID extends PIDCommand {
     addRequirements(m_drivetrain);
   }
 
+  @Override
+  public void initialize() {
+    super.initialize();
+    m_drivetrain.resetDistanceTravelled();
+  }
+
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
