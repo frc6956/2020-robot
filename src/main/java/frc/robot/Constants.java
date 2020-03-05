@@ -71,7 +71,9 @@ public final class Constants {
     }
 
     public final class DrivetrainConstants {
-        public static final double ticksPerInch = 4096 / (8 * Math.PI);
+        public static final int kTicksPerRev = 4096;
+        public static final double kWheelCircumference = 8 * Math.PI;
+        public static final double ticksPerInch = kTicksPerRev / kWheelCircumference;
     }
 
     public final class Shooter {
