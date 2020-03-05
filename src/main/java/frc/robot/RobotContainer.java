@@ -113,7 +113,6 @@ public class RobotContainer {
     m_conveyor.setDefaultCommand(m_TeleopConveyor);
     m_feeder.setDefaultCommand(m_TeleopFeeder);
     m_shooter.setDefaultCommand(m_TeleopShooter);
-    SmartDashboard.putData("PDP", new PowerDistributionPanel());
 
     CameraServer.getInstance().startAutomaticCapture(0);
     
