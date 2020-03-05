@@ -65,7 +65,7 @@ public class Drivetrain extends SubsystemBase {
     m_drive.setRightSideInverted(false);
 
     m_leftSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
-    m_leftSRX.setSensorPhase(true);
+   // m_leftSRX.setSensorPhase(true);
     m_rightSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
   }
 
