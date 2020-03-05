@@ -17,6 +17,10 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
+/**
+ * Creates a new Drivetrain
+ */
 public class Drivetrain extends SubsystemBase {
   
   DoubleSolenoid doubleSolenoid = new DoubleSolenoid(Constants.PCM.driveLow, Constants.PCM.driveHigh);
@@ -75,6 +79,9 @@ public class Drivetrain extends SubsystemBase {
     displayDistance();
   }
 
+  /**
+   * Displays the total distance traveled
+   */
   public void displayDistance() {
       SmartDashboard.putNumber("Distance Traveled: ", getDistanceTravelled());
   }
@@ -147,13 +154,19 @@ public class Drivetrain extends SubsystemBase {
     return (total / 2);
   }
 
+  /**
+   * Sets the robot to low gear for a 2 speed gearbox
+   */
   public void lowGear() {
 		if (doubleSolenoid.get() != DoubleSolenoid.Value.kForward) {
 			doubleSolenoid.set(DoubleSolenoid.Value.kForward);
     }
     low = true;
   }
-    
+  
+  /**
+   * Sets the robot to high gear for a 2 speed gearbox
+   */
   public void highGear() {
 		if (doubleSolenoid.get() != DoubleSolenoid.Value.kReverse) {
 			doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
@@ -161,12 +174,9 @@ public class Drivetrain extends SubsystemBase {
     low = false;
   }
 
-  public void switchToHigh() {
-    if(doubleSolenoid.get() != DoubleSolenoid.Value.kForward) {
-      doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
-    }
-  }
-
+  /**
+   * Automatically switches gears of the drivetrain based on Left side and Right side Velocity
+   */
   public void switchGear() {
     speedAverage = m_leftSRX.getSelectedSensorVelocity() * 10 / ticksPerInch;
     speedAverage += m_rightSRX.getSelectedSensorVelocity() * 10 / ticksPerInch;

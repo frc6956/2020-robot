@@ -11,12 +11,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
-public class Feeder extends SubsystemBase {
   
 /**
  * 4in wheels on top of robot
  */
+
+public class Feeder extends SubsystemBase {
 
 private WPI_VictorSPX m_motor;
 
@@ -29,6 +29,10 @@ private WPI_VictorSPX m_motor;
     // This method will be called once per scheduler run
   }
 
+  /**
+   * Sets the speed of the robot
+   * @param speed Percentage of bus voltage
+   */
   public void setFeedSpeed(double speed) {
     m_motor.set(speed);
   }

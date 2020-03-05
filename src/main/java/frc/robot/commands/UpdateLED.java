@@ -10,6 +10,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LED;
 
+/**
+ * Updates the LED
+ */
 public class UpdateLED extends CommandBase {
   private final LED m_led;
   

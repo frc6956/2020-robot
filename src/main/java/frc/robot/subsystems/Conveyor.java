@@ -29,6 +29,9 @@ public class Conveyor extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  /**
+   * Sets the speed of the conveyor by percentage of bus voltage
+   */
   public void setConveyorSpeed(double speed) {
     m_motor.set(-speed);
   }

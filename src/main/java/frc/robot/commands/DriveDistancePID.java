@@ -14,14 +14,15 @@ import frc.robot.subsystems.*;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+
+  /**
+   * Drives the robot forward based in inches, and corrects using as PID loop
+   */
+
 public class DriveDistancePID extends PIDCommand {
   private final Drivetrain m_drivetrain;
   private final GyroPigeon m_gyro;
   private final double m_requestedDistance;
-
-  /**
-   * Creates a new DriveDistancePID.
-   */
   public DriveDistancePID(final Drivetrain drivetrain, final GyroPigeon pigeon, final double distance) {
     super(
         // The controller that the command will use

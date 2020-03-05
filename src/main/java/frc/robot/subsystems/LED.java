@@ -14,6 +14,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
+/**
+ * The LED's of the robot
+ */
 public class LED extends SubsystemBase {
 
   private SerialPort serial;
@@ -51,7 +54,13 @@ public class LED extends SubsystemBase {
     }
   }
   
-
+/**
+ * Starts the color using rgb at the index
+ * @param index
+ * @param r Value of Red in rgb scheme
+ * @param g Value of Green in rgb scheme
+ * @param b Value of Blue in rgb scheme
+ */
   private void setRGB(int index, int r, int g, int b) {
     //red is actually blue
     //green is actually red
@@ -59,10 +68,19 @@ public class LED extends SubsystemBase {
     buffer.setRGB(index, b, r, g);
   }
 
+  /**
+   * Updates the LED pattern
+   */
   private void update() {
     m_led.setData(buffer);
   }
 
+  /**
+   * Sets a color based on RED, GREEN, BLUE code
+   * @param r
+   * @param g
+   * @param b
+   */
   private void setAllRGB(int r, int g, int b) {
     for (int i = 0; i < buffer.getLength(); i++) {
       setRGB(i, r, g, b);
@@ -70,6 +88,9 @@ public class LED extends SubsystemBase {
     update();
   }
 
+  /**
+   * Clears LED patterns
+   */
   private void clear() {
     for(int i = 0; i < buffer.getLength(); i++) {
       setRGB(i, 0, 0, 0);
@@ -77,6 +98,9 @@ public class LED extends SubsystemBase {
     update();
   }
 
+  /**
+   * Sets the pattern of the robot during Teleoperated period
+   */
   private void teleop() {
     setRGB(counter, 0, 0, 0);
     counter++;
@@ -85,6 +109,9 @@ public class LED extends SubsystemBase {
     update();
   }
 
+  /**
+   * Sets the pattern of the robot while engaging the color wheel
+   */
   private void spinningWheel()
   {
     if(timer.hasPeriodPassed(0.01)) {
@@ -102,6 +129,9 @@ public class LED extends SubsystemBase {
     }
   }
 
+  /**
+   * Sets the LED pattern for the robot in autonomous mode
+   */
   private void autonomous() {
     /*setRGB(counter, 0, 0, 0);
     counter++;
@@ -122,6 +152,9 @@ public class LED extends SubsystemBase {
     update();
   }
 
+  /**
+   * Sets the LED pattern for a disabled robot
+   */
   private void disabled() {
     setRGB(counter, 0, 0, 0);
     counter++;

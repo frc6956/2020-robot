@@ -10,6 +10,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ColorSpinner;
 
+/**
+ * Spins the ColorSpinner subsystem
+ */
 public class TeleopSpinner extends CommandBase {
   private final ColorSpinner m_clrSpinner;
 
