@@ -121,8 +121,15 @@ public class RobotContainer {
     configureButtonBindings();
 
     m_chooser.setDefaultOption("Do nothing", null);
-    m_chooser.addOption("Drive", new SequentialCommandGroup(new DriveDistancePID(m_drivetrain, m_gyro, 120)));
-    m_chooser.addOption("Drive n' Turn", new SequentialCommandGroup(new DriveDistancePID(m_drivetrain, m_gyro, 120), new TurnAnglePID(m_drivetrain, m_gyro, 180) ));
+    m_chooser.addOption("Drive", new SequentialCommandGroup(new DriveDistance(m_drivetrain, 18.0), new WaitCommand(15)));
+    
+    m_chooser.addOption("Shoot n' Drive Forwards", new SequentialCommandGroup(new Shoot(m_shooter, 1.0), new Feed(m_feeder, 1.0), new WaitCommand(4), 
+        new IntakeConveyor(m_intake, m_conveyor, 1.0, 1.0), new WaitCommand(3), new DriveDistance(m_drivetrain, 18)  ) );
+    m_chooser.addOption("Shoot n' Drive Backwards", new SequentialCommandGroup(new Shoot(m_shooter, 1.0), new Feed(m_feeder, 1.0), new WaitCommand(4), 
+        new IntakeConveyor(m_intake, m_conveyor, 1.0, 1.0), new WaitCommand(3), new DriveDistance(m_drivetrain, -18)  ) );
+    m_chooser.addOption("Put me in coach", new SequentialCommandGroup(new ParallelCommandGroup(new FeedShoot(m_shooter, m_feeder, 1000, 1000)),
+        new SequentialCommandGroup(new WaitCommand(4), new IntakeConveyor(m_intake, m_conveyor, 1.0, 1.0) ))  );
+    //m_chooser.addOption("Drive n' Turn", new SequentialCommandGroup(new DriveDistance(m_drivetrain, 120), new TurnAnglePID(m_drivetrain, m_gyro, 180) ));
     SmartDashboard.putData("Auto mode", m_chooser);
   }
 
@@ -140,6 +147,7 @@ public class RobotContainer {
     new JoystickButton(m_driverRightJoystick, 6).whenPressed(m_driverSwitchHigh);
     new JoystickButton(m_driverRightJoystick, 6).whenReleased(m_driverSwitchLow);
     new JoystickButton(m_driverRightJoystick, 1).whenPressed(m_invertDrive);
+    new JoystickButton(m_driverLeftJoystick, 1).whenPressed(m_TeleopSlideIn);
 
 //Operator Configs
     new JoystickButton(m_operatorController, XboxController.Button.kY.value).whenPressed(m_SpinnerUp);
