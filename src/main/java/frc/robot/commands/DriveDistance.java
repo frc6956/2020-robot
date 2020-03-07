@@ -29,16 +29,16 @@ public class DriveDistance extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    mdrivetrain.resetDistanceTravelled();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     if(requestedDistance >= 0) {
-      mdrivetrain.tankDrive(0.4, 0.4);
+      mdrivetrain.tankDrive(0.4, 0.4, false);
     } else {
-      mdrivetrain.tankDrive(-0.4, -0.4);
+      mdrivetrain.tankDrive(-0.4, -0.4, false);
     }
   }
 

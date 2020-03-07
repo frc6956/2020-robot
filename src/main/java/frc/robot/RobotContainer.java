@@ -100,6 +100,9 @@ public class RobotContainer {
 
   private final SequentialCommandGroup m_AutoGrab = new SequentialCommandGroup(new Slide(m_slide),  new WaitCommand(2), new Slide(m_slide) );
 
+  //Auton
+  private final Command autonShoot = new RunCommand(
+    () -> m_shooter.setShooterRPM(1000), m_shooter);
 
 
 
@@ -115,20 +118,21 @@ public class RobotContainer {
     m_shooter.setDefaultCommand(m_TeleopShooter);
 
     CameraServer.getInstance().startAutomaticCapture(0);
-    
+    CameraServer.getInstance().startAutomaticCapture(1);
     SmartDashboard.putData(m_pdp);
     
     configureButtonBindings();
 
-    m_chooser.setDefaultOption("Do nothing", null);
-    m_chooser.addOption("Drive", new SequentialCommandGroup(new DriveDistance(m_drivetrain, 18.0), new WaitCommand(15)));
+    m_chooser.addOption("Do nothing", null);
+    m_chooser.setDefaultOption("Drive", new SequentialCommandGroup(new DriveDistance(m_drivetrain, 18.0)));
     
     m_chooser.addOption("Shoot n' Drive Forwards", new SequentialCommandGroup(new Shoot(m_shooter, 1.0), new Feed(m_feeder, 1.0), new WaitCommand(4), 
         new IntakeConveyor(m_intake, m_conveyor, 1.0, 1.0), new WaitCommand(3), new DriveDistance(m_drivetrain, 18)  ) );
     m_chooser.addOption("Shoot n' Drive Backwards", new SequentialCommandGroup(new Shoot(m_shooter, 1.0), new Feed(m_feeder, 1.0), new WaitCommand(4), 
         new IntakeConveyor(m_intake, m_conveyor, 1.0, 1.0), new WaitCommand(3), new DriveDistance(m_drivetrain, -18)  ) );
-    m_chooser.addOption("Put me in coach", new SequentialCommandGroup(new ParallelCommandGroup(new FeedShoot(m_shooter, m_feeder, 1000, 1000)),
-        new SequentialCommandGroup(new WaitCommand(4), new IntakeConveyor(m_intake, m_conveyor, 1.0, 1.0) ))  );
+    m_chooser.addOption("Drive & Shoot", new SequentialCommandGroup(new ParallelRaceGroup(autonShoot, new DriveDistance(m_drivetrain, 18), 
+    new FeedShoot(m_shooter, m_feeder, m_conveyor, 1000, 1, 1, 5) ) ) );
+
     //m_chooser.addOption("Drive n' Turn", new SequentialCommandGroup(new DriveDistance(m_drivetrain, 120), new TurnAnglePID(m_drivetrain, m_gyro, 180) ));
     SmartDashboard.putData("Auto mode", m_chooser);
   }
