@@ -34,6 +34,9 @@ public class Conveyor extends SubsystemBase {
     SmartDashboard.putNumber("Conveyor Current", m_pdp.getCurrent(Constants.PDP.conveyorMotor));
   }
 
+  /**
+   * Sets the speed of the conveyor by percentage of bus voltage
+   */
   public void setConveyorSpeed(double speed) {
     m_motor.set(-speed);
   }

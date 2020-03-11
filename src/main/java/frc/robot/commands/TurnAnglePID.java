@@ -16,6 +16,10 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+
+/**
+ * Angular rotation of the robot, uses a PID loop to correct for over rotation
+ */
 public class TurnAnglePID extends PIDCommand {
   /**
    * Creates a new TurnAnglePID.

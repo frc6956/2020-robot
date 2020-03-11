@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.GyroPigeon;
@@ -25,6 +26,7 @@ public class DriveDistance extends CommandBase {
     requestedDistance = distance;
     addRequirements(mdrivetrain);
   }
+  
 
   // Called when the command is initially scheduled.
   @Override

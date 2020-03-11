@@ -19,10 +19,11 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.*;
 import frc.robot.Constants;
 
+/**
+ * Creates a new Color Spinner .
+ */
+
 public class ColorSpinner extends SubsystemBase {
-  /**
-   * Creates a new Drivetrain.
-   */
    private String[] clrOrder = {"red", "green", "blue", "yellow"};
    String matchedClr = "not Spinning";
    private WPI_TalonSRX spinnerMotor = new WPI_TalonSRX(Constants.CAN.spinner);

@@ -17,6 +17,10 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
+/**
+ * Creates a new Drivetrain
+ */
 public class Drivetrain extends SubsystemBase {
   
   DoubleSolenoid doubleSolenoid = new DoubleSolenoid(Constants.PCM.driveLow, Constants.PCM.driveHigh);
@@ -34,7 +38,7 @@ public class Drivetrain extends SubsystemBase {
   private double zeroDistance = 0;
   private boolean reverse = false;
   private boolean low = true;
-  private final double ticksPerInch = 4096 / (8 * Math.PI);
+  
 
   private double speedAverage = 0;
   private double speedDifference = 0;
@@ -73,8 +77,12 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     displayDistance();
+    calculateSpeed();
   }
 
+  /**
+   * Displays the total distance traveled
+   */
   public void displayDistance() {
       SmartDashboard.putNumber("Distance Traveled: ", getDistanceTravelled());
   }
@@ -142,18 +150,24 @@ public class Drivetrain extends SubsystemBase {
    * @return Raw non-zeroed distance
    */
   protected double getRawDistanceTravelled() {
-    double total = m_leftSRX.getSelectedSensorPosition(0) / ticksPerInch;
-    total += m_rightSRX.getSelectedSensorPosition(0) / ticksPerInch;
+    double total = m_leftSRX.getSelectedSensorPosition(0) / Constants.DrivetrainConstants.ticksPerInch;
+    total += m_rightSRX.getSelectedSensorPosition(0) / Constants.DrivetrainConstants.ticksPerInch;
     return (total / 2);
   }
 
+  /**
+   * Sets the robot to low gear for a 2 speed gearbox
+   */
   public void lowGear() {
 		if (doubleSolenoid.get() != DoubleSolenoid.Value.kForward) {
 			doubleSolenoid.set(DoubleSolenoid.Value.kForward);
     }
     low = true;
   }
-    
+  
+  /**
+   * Sets the robot to high gear for a 2 speed gearbox
+   */
   public void highGear() {
 		if (doubleSolenoid.get() != DoubleSolenoid.Value.kReverse) {
 			doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
@@ -167,13 +181,19 @@ public class Drivetrain extends SubsystemBase {
     }
   }
 
-  public void switchGear() {
-    speedAverage = m_leftSRX.getSelectedSensorVelocity() * 10 / ticksPerInch;
-    speedAverage += m_rightSRX.getSelectedSensorVelocity() * 10 / ticksPerInch;
+  public void calculateSpeed() {
+    speedAverage = m_leftSRX.getSelectedSensorVelocity() * 10 / Constants.DrivetrainConstants.ticksPerInch;
+    speedAverage += m_rightSRX.getSelectedSensorVelocity() * 10 / Constants.DrivetrainConstants.ticksPerInch;
     speedAverage /= 2;
+    //to convert from inches per second to feet per second
+    speedAverage /=12;
+    SmartDashboard.putNumber("Speed", speedAverage);
+  }
 
+
+  public void switchGear() {
     speedDifference = Math.abs(m_leftSRX.getSelectedSensorVelocity() - m_rightSRX.getSelectedSensorVelocity() );
-
+    
     if(speedAverage > 10 && low==true) {
       highGear();
     } 

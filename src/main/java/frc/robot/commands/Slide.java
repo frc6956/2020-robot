@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.LinearSlide;
 
+/**
+ * Controls the linear slide of the superstructure
+ */
 public class Slide extends CommandBase {
   /**
    * Creates a new Slide.

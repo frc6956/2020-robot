@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+/**
+ * Creates a new LinearSlide (The Robot Superstructure)
+ */
 public class LinearSlide extends SubsystemBase {
     private DoubleSolenoid m_slideSolenoid = new DoubleSolenoid(Constants.PCM.slideIn, Constants.PCM.slideOut);
 

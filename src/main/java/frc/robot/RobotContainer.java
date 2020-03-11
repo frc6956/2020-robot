@@ -151,6 +151,7 @@ public class RobotContainer {
     //new JoystickButton(m_driverLeftJoystick, 5).whenPressed(m_driverSwitchHigh);
     //new JoystickButton(m_driverRightJoystick, 6).whenPressed(m_driverSwitchLow);
     new JoystickButton(m_driverRightJoystick, 6).whenPressed(m_driverSwitchHigh);
+    
     new JoystickButton(m_driverRightJoystick, 6).whenReleased(m_driverSwitchLow);
     new JoystickButton(m_driverRightJoystick, 1).whenPressed(m_invertDrive);
     new JoystickButton(m_driverLeftJoystick, 1).whenPressed(m_TeleopSlideIn);

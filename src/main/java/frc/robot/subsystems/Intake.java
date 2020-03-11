@@ -27,6 +27,10 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  /**
+   * Sets the intake speed
+   * @param speed Percentage of bus voltage
+   */
   public void setIntakeSpeed(double speed) {
     m_motor.set(speed);
   }

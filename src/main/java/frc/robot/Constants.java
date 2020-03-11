@@ -8,6 +8,7 @@
 package frc.robot;
 
 /**
+ * A convenient place to store constants organized by import location
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
  * declared globally (i.e. public static).  Do not put anything functional in this class.
@@ -68,6 +69,12 @@ public final class Constants {
     //Digital Imports
     public final class DIO {
 
+    }
+
+    public final class DrivetrainConstants {
+        public static final int kTicksPerRev = 4096;
+        public static final double kWheelCircumference = 8 * Math.PI;
+        public static final double ticksPerInch = kTicksPerRev / kWheelCircumference;
     }
 
     public final class Shooter {
