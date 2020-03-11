@@ -42,6 +42,7 @@ public class FeedShoot extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -49,7 +50,7 @@ public class FeedShoot extends CommandBase {
   public void execute() {
     mShooter.setShooterSpeed(shootSpeed);
     mFeeder.setFeedSpeed(-feedSpeed);
-    mConveyor.setConveyorSpeed(conSpeed);
+    mConveyor.setConveyorSpeed(-conSpeed);
   }
 
   // Called once the command ends or is interrupted.
